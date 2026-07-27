@@ -1,0 +1,69 @@
+h1 {
+    margin: 0;
+}
+
+p {
+    color: #666;
+    margin: 6px 0 0;
+}
+
+.heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+mat-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.filter {
+    width: min(440px, 100%);
+}
+
+.table-wrap {
+    overflow: auto;
+}
+
+table {
+    width: 100%;
+    // .mat-mdc-header-row sets `color` from this token; overriding the token itself avoids
+    // fighting Material's own (higher-priority, layered) color rule on the row.
+    --mat-table-header-headline-color: #004eaa;
+}
+
+small {
+    color: #666;
+}
+
+.view-icon {
+    color: #e10054;
+}
+
+.add-btn {
+    background-color: #e10054 !important;
+    color: #fff !important;
+}
+
+.edit-icon {
+    color: #004eaa;
+}
+
+.delete-icon {
+    color: #ef0505;
+}
+
+.empty-state {
+    text-align: center;
+    color: #666;
+    padding: 32px 0;
+}
+
+@media (max-width: 600px) {
+    .heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

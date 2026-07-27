@@ -1,0 +1,142 @@
+.login-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+}
+
+.brand-pane {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 64px;
+  background: linear-gradient(160deg, #2f3351 0%, #1c2340 40%, #004eaa 85%);
+  color: #fff;
+}
+
+.brand-glow {
+  position: absolute;
+  inset: -30% -10% auto auto;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(225, 0, 84, 0.35), transparent 70%);
+  filter: blur(10px);
+}
+
+.brand-content {
+  position: relative;
+  max-width: 440px;
+  animation: fade-in-up 600ms ease-out;
+}
+
+.brand-mark {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-bottom: 32px;
+
+  .accent {
+    color: #e10054;
+  }
+}
+
+.brand-content h1 {
+  font-size: 2.25rem;
+  line-height: 1.2;
+  margin: 0 0 16px;
+}
+
+.brand-content p {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 32px;
+}
+
+.brand-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  mat-icon {
+    color: #e10054;
+  }
+}
+
+.form-pane {
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  background: #f7f8fb;
+}
+
+.form-card {
+  width: min(380px, 100%);
+  animation: fade-in-up 600ms ease-out 100ms both;
+}
+
+.form-card h2 {
+  margin: 0 0 4px;
+  font-size: 1.75rem;
+}
+
+.subtitle {
+  color: #666;
+  margin: 0 0 32px;
+}
+
+mat-form-field, button {
+  width: 100%;
+}
+
+.preview {
+  color: #004eaa;
+  margin: -8px 0 16px;
+  font-size: 0.9rem;
+}
+
+button[type="submit"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .login-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-pane {
+    padding: 48px 32px;
+  }
+
+  .brand-content h1 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-content, .form-card {
+    animation: none;
+  }
+}

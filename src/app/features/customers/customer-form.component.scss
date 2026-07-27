@@ -1,0 +1,44 @@
+h1 { margin: 0; }
+p { color: #666; margin: 6px 0 0; }
+h3 { margin: 24px 0 8px; }
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  
+}
+
+.mdc-button__label {
+    color: #e10054 !important;
+  }
+
+.row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  mat-form-field {
+    flex: 1 1 200px;
+  }
+}
+
+.address-group {
+  border-left: 3px solid rgba(0, 0, 0, 0.08);
+  padding-left: 12px;
+  margin-bottom: 12px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+@media (max-width: 600px) {
+  .heading { align-items: flex-start; flex-direction: column; }
+}

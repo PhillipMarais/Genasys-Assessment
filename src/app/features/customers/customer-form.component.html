@@ -1,0 +1,70 @@
+<section class="heading">
+  <div>
+    <h1 style="color: #e10054;">{{ isEdit ? 'Edit customer' : 'Add customer' }}</h1>
+    <p>Capture the customer's details, addresses and enrichment info.</p>
+  </div>
+  <a mat-button routerLink="/customers"><mat-icon>arrow_back</mat-icon> Back to customers</a>
+</section>
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>First name</mat-label>
+          <input matInput formControlName="firstName" required>
+          <mat-error>First name is required.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Last name</mat-label>
+          <input matInput formControlName="lastName" required>
+          <mat-error>Last name is required.</mat-error>
+        </mat-form-field>
+      </div>
+
+      <app-enrichment-panel
+        [lastNameControl]="form.controls.lastName"
+        [countryControl]="form.controls.countryCode"
+        [universityControl]="form.controls.university"
+      />
+
+      <h3>Addresses</h3>
+      <div formArrayName="addresses">
+        @for (address of addresses.controls; track $index) {
+          <div class="address-group" [formGroupName]="$index">
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Street</mat-label>
+                <input matInput formControlName="street" required>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>City</mat-label>
+                <input matInput formControlName="city" required>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Suburb</mat-label>
+                <input matInput formControlName="suburb" required>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Postal code</mat-label>
+                <input matInput formControlName="postalCode" required>
+              </mat-form-field>
+              <button type="button" mat-icon-button aria-label="Remove address" [disabled]="addresses.length === 1" (click)="removeAddress($index)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+      <button type="button" mat-button (click)="addAddress()"><mat-icon>add</mat-icon> Add another address</button>
+
+      <div class="actions">
+        <button type="button" mat-button (click)="cancel()">Cancel</button>
+        <button type="submit" mat-flat-button color="primary" [disabled]="form.invalid">{{ isEdit ? 'Save changes' : 'Add customer' }}</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

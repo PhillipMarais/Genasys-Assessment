@@ -1,0 +1,42 @@
+<div class="login-shell">
+  <section class="brand-pane">
+    <div class="brand-glow"></div>
+    <div class="brand-content">
+      <div class="brand-mark">
+        <span>GEN<span class="accent">A</span>SYS</span>
+      </div>
+      <h1>Insurance management, made effortless.</h1>
+      <p>Manage customers, quotes and enrichment data from one modern workspace.</p>
+      <ul class="brand-features">
+        <li><mat-icon>bolt</mat-icon> Real-time, NgRx-powered records</li>
+        <li><mat-icon>travel_explore</mat-icon> Smart nationality &amp; university lookup</li>
+        <li><mat-icon>verified</mat-icon> Built with Angular Material</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="form-pane">
+    <div class="form-card">
+      <h2>Welcome back</h2>
+      <p class="subtitle">Sign in to access the customer &amp; quote dashboard.</p>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Your name</mat-label>
+          <input matInput formControlName="name" autocomplete="name" required>
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-error>Please enter your name.</mat-error>
+        </mat-form-field>
+
+        @if (greeting$ | async; as greeting) {
+          <p class="preview">{{ greeting }}</p>
+        }
+
+        <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
+          Continue
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </form>
+    </div>
+  </section>
+</div>

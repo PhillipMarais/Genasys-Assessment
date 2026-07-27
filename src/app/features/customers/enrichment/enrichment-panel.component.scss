@@ -1,0 +1,53 @@
+.enrichment-panel {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  padding: 16px 20px 4px;
+  margin: 16px 0 24px;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+h3 {
+  margin: 0 0 4px;
+}
+
+.hint {
+  margin: 0 0 12px;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.predictions {
+  margin-bottom: 12px;
+  min-height: 32px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.empty-state {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.warning {
+  color: #b26a00;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.confirmed-country,
+.confirmed-university {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #2e7d32;
+  font-size: 0.9rem;
+}
+
+.confirmed-university a {
+  margin-left: 4px;
+  color: inherit;
+}

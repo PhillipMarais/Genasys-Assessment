@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit quote' : 'Add quote' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Customer</mat-label>
+      <mat-select formControlName="customerId">
+        @for (customer of customers(); track customer.id) {
+          <mat-option [value]="customer.id">{{ customer.firstName }} {{ customer.lastName }}</mat-option>
+        }
+      </mat-select>
+      <mat-error>Please select a customer.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Amount</mat-label>
+      <span matTextPrefix>R&nbsp;</span>
+      <input matInput type="number" formControlName="amount" min="1">
+      <mat-error>Enter a valid amount.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        @for (status of statuses; track status) {
+          <mat-option [value]="status">{{ status }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Created date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="createdDate">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">{{ isEdit ? 'Save' : 'Add' }}</button>
+  </mat-dialog-actions>
+</form>

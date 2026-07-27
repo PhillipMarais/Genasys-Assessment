@@ -1,0 +1,42 @@
+@use '@angular/material' as mat;
+
+// Genasys Technologies brand palette (sourced from genasystech.com's own stylesheet).
+$genasys-navy: #2f3351; // primary — matches their toolbar/sidebar background
+$genasys-blue: #004eaa; // secondary — their own "secondary" brand colour
+$genasys-teal: #00b2b1;
+$genasys-amber: #f1b53d;
+$genasys-pink: #e10054; // tertiary/accent — matches the logo's pink dash
+
+$theme: mat.define-theme((color: (theme-type: light,
+        primary: mat.$blue-palette,
+        tertiary: mat.$magenta-palette,
+      ),
+      typography: (plain-family: 'Roboto, "Helvetica Neue", sans-serif'),
+      density: (scale: 0),
+    ));
+
+html {
+  @include mat.all-component-themes($theme);
+  @include mat.all-component-typographies($theme);
+  @include mat.theme-overrides((primary: $genasys-navy,
+      on-primary: #fff,
+      primary-container: $genasys-blue,
+      on-primary-container: #fff,
+      secondary: $genasys-blue,
+      on-secondary: #fff,
+      tertiary: $genasys-pink,
+      on-tertiary: #fff,
+    ));
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #f7f8fb;
+  color: #1d1b20;
+}
