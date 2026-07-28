@@ -1,6 +1,6 @@
 <section class="heading">
   <div>
-    <h1 style="color: #00b2b1;">Customer management</h1>
+    <h1>Customer management</h1>
     <p>Manage customer details and their insurance quotes.</p>
   </div>
   <button mat-flat-button class="add-btn" (click)="addCustomer()"><mat-icon>person_add</mat-icon> Add customer</button>
@@ -53,5 +53,7 @@
         <p class="empty-state">No customers yet. Click "Add customer" to create one.</p>
       }
     </div>
+
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons></mat-paginator>
   </mat-card-content>
 </mat-card>

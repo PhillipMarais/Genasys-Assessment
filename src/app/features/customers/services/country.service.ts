@@ -10,7 +10,9 @@ export class CountryService {
   private readonly http = inject(HttpClient);
 
   private readonly countries$: Observable<Country[]> = this.http.get<CountryApiEntry[]>(COUNTRIES_URL).pipe(
-    map((entries) => entries.map((entry) => ({ code: entry.alpha2Code, name: entry.name, flag: entry.flag }))),
+    map((entries) =>
+      entries.map((entry) => ({ code: entry.alpha2Code, name: entry.name, flag: entry.flag, flagUrl: entry.flags.svg }))
+    ),
     catchError((error) => {
       console.error('Failed to load country list', error);
       return of<Country[]>([]);

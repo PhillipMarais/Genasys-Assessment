@@ -20,6 +20,7 @@ export interface Country {
   code: string;
   name: string;
   flag: string;
+  flagUrl: string;
 }
 
 export interface CountryPrediction extends Country {

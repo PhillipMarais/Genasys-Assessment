@@ -10,7 +10,8 @@
         <mat-chip-listbox aria-label="Predicted nationality" (change)="selectPrediction($event)">
           @for (prediction of predictions; track prediction.code) {
             <mat-chip-option [value]="prediction" [selected]="prediction.code === countryControl.value">
-              {{ prediction.flag }}&nbsp;{{ prediction.name }} · {{ prediction.probability | percent: '1.0-0' }}
+              <img class="flag-icon" [src]="prediction.flagUrl" alt="">
+              {{ prediction.name }} · {{ prediction.probability | percent: '1.0-0' }}
             </mat-chip-option>
           }
         </mat-chip-listbox>
@@ -28,13 +29,20 @@
     <input matInput [formControl]="countrySearch" [matAutocomplete]="countryAuto" placeholder="Search all countries">
     <mat-autocomplete #countryAuto="matAutocomplete" (optionSelected)="selectManualCountry($event.option.value)">
       @for (country of manualCountryOptions$ | async; track country.code) {
-        <mat-option [value]="country">{{ country.flag }}&nbsp;{{ country.name }}</mat-option>
+        <mat-option [value]="country">
+          <img class="flag-icon" [src]="country.flagUrl" alt="">
+          {{ country.name }}
+        </mat-option>
       }
     </mat-autocomplete>
   </mat-form-field>
 
   @if (selectedCountry$ | async; as selectedCountry) {
-    <p class="confirmed-country"><mat-icon inline>check_circle</mat-icon> Confirmed: {{ selectedCountry.flag }} {{ selectedCountry.name }}</p>
+    <p class="confirmed-country">
+      <mat-icon inline>check_circle</mat-icon> Confirmed:
+      <img class="flag-icon" [src]="selectedCountry.flagUrl" alt="">
+      {{ selectedCountry.name }}
+    </p>
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>University</mat-label>

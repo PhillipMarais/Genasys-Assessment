@@ -1,117 +1,122 @@
 :host {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .app-toolbar {
-    border-bottom: 1px solid #768cfb;
-    flex: 0 0 auto;
-    z-index: 10;
-    background: linear-gradient(90deg, white 0%, #004eaa 0%, #1c2340 99%);
-    color: white;
+  border-bottom: 1px solid #768cfb;
+  flex: 0 0 auto;
+  z-index: 10;
+  background: linear-gradient(90deg, white 0%, #004eaa 0%, #1c2340 99%);
+  color: white;
 }
 
 .brand-logo {
-    display: block;
-    height: 32px;
-    width: auto;
+  display: block;
+  height: 32px;
+  width: auto;
 }
 
 .spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 .welcome {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 14px;
-    margin-right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+.logout-btn {
+  color: white !important;
 }
 
 .app-shell {
-    flex: 1 1 auto;
-    min-height: 0;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .app-sidenav {
-    width: 221px;
-    background: linear-gradient(180deg,  #004eaa 30%, #1c2340 80%);
-    color: rgba(255, 255, 255, 0.9);
-    border-radius: 0px;
+  width: 221px;
+  background: linear-gradient(180deg, #004eaa 30%, #1c2340 80%);
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 0;
 
-    // The list-item label is rendered by a nested `.mdc-list-item__primary-text` element that
-    // reads its color from these tokens, not from inherited `color` — override the tokens
-    // directly instead of fighting specificity on the anchor.
-    --mdc-list-list-item-label-text-color: rgba(255, 255, 255, 0.85);
-    --mdc-list-list-item-hover-label-text-color: #fff;
-    --mdc-list-list-item-focus-label-text-color: #fff;
+  // The list-item label is rendered by a nested `.mdc-list-item__primary-text` element that
+  // reads its color from these tokens, not from inherited `color` — override the tokens
+  // directly instead of fighting specificity on the anchor.
+  --mdc-list-list-item-label-text-color: rgba(255, 255, 255, 0.85);
+  --mdc-list-list-item-hover-label-text-color: #fff;
+  --mdc-list-list-item-focus-label-text-color: #fff;
 
-    mat-nav-list {
-        padding-top: 12px;
+  mat-nav-list {
+    padding-top: 12px;
+  }
+
+  a.mat-mdc-list-item {
+    border-right: 6px solid transparent;
+    border-radius: 0;
+
+    mat-icon {
+      color: rgba(255, 255, 255, 0.7);
     }
 
-    a.mat-mdc-list-item {
-        border-right: 6px solid transparent;
-        border-radius: 0px;
-        mat-icon {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        &.active-link {
-            --mdc-list-list-item-label-text-color: #fff;
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        &.nav-customers.active-link {
-            border-right-color: #00b2b1;
-
-            mat-icon {
-                color: #00b2b1;
-            }
-        }
-
-        &.nav-quotes.active-link {
-            border-right-color: #b24ebe;
-
-            mat-icon {
-                color: #b24ebe;
-            }
-        }
+    &.active-link {
+      --mdc-list-list-item-label-text-color: #fff;
+      background: rgba(255, 255, 255, 0.08);
     }
+
+    &.nav-customers.active-link {
+      border-right-color: #00b2b1;
+
+      mat-icon {
+        color: #00b2b1;
+      }
+    }
+
+    &.nav-quotes.active-link {
+      border-right-color: #b24ebe;
+
+      mat-icon {
+        color: #b24ebe;
+      }
+    }
+  }
 }
 
 .app-content {
-    min-height: 90vh;
-    max-width: 90vw;
-    margin: 0 auto;
-    padding: 32px 24px;
-    width: 100%;
-    box-sizing: border-box;
+  min-height: 90vh;
+  max-width: 90vw;
+  margin: 0 auto;
+  padding: 32px 24px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .app-content.full-bleed {
-    max-width: none;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
 }
 
 .app-footer {
-    flex: 0 0 auto;
-    display: flex;
-    justify-content: space-between;
-    padding: 16px 24px;
-    color: #666;
-    font-size: 0.8rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px;
+  color: #666;
+  font-size: 0.8rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 @media (max-width: 700px) {
-    .app-footer {
-        flex-direction: column;
-        gap: 4px;
-        text-align: center;
-    }
+  .app-footer {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
 }

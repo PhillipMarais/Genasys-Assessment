@@ -3,6 +3,7 @@ import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
 import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,6 +30,7 @@ const MAX_PREDICTIONS = 5;
     PercentPipe,
     ReactiveFormsModule,
     MatAutocompleteModule,
+    MatButtonModule,
     MatChipsModule,
     MatFormFieldModule,
     MatIconModule,
@@ -94,7 +96,7 @@ export class EnrichmentPanelComponent implements OnInit {
           )
         );
       }),
-      takeUntilDestroyedCompat(this.destroyRef)
+      takeUntilDestroyed(this.destroyRef)
     );
 
     this.manualCountryOptions$ = combineLatest([this.countrySearch.valueChanges.pipe(startWith('')), countries$]).pipe(
@@ -158,6 +160,3 @@ export class EnrichmentPanelComponent implements OnInit {
     this.universityQuery.setValue('');
   }
 }
-
-// Small local wrapper so this file only needs the one rxjs-interop import site.
-import { takeUntilDestroyed as takeUntilDestroyedCompat } from '@angular/core/rxjs-interop';

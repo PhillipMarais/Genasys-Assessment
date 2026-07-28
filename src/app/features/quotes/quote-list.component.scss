@@ -1,14 +1,180 @@
-h1 { margin: 0; }
-p { color: #666; margin: 6px 0 0; }
-.heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }
-mat-card { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
-.filter { width: min(440px, 100%); }
-.table-wrap { overflow: auto; }
-table { width: 100%; --mat-table-header-headline-color: #004eaa; }
-.quote-id-cell { color: #e10054 !important; }
-.add-btn { background-color: #e10054 !important; color: #fff !important; }
-.edit-icon { color: #004eaa; }
-.delete-icon { color: #ef0505; }
-.empty-state { text-align: center; color: #666; padding: 32px 0; }
+h1 {
+  margin: 0;
+  color: #b24ebe;
+}
 
-@media (max-width: 600px) { .heading { align-items: flex-start; flex-direction: column; } }
+p {
+  color: #666;
+  margin: 6px 0 0;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+mat-card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.status-filter-card {
+  margin-bottom: 24px;
+}
+
+.filters-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.filter {
+  width: min(440px, 100%);
+}
+
+.top-filters-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.customer-filter {
+  width: min(320px, 100%);
+}
+
+.date-range-filter {
+  width: min(320px, 100%);
+}
+
+.status-filter-stepper {
+  flex: 1 1 auto;
+
+  // The stepper's own content panels are unused here — this is a filter bar, not a wizard.
+  ::ng-deep .mat-horizontal-content-container {
+    display: none;
+  }
+
+  .status-circle {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-sizing: border-box;
+
+    &.sent {
+      background-color: #00b2b1;
+
+      &.active {
+        box-shadow: 0 0 6px 1px #00b2b1;
+      }
+    }
+
+    &.draft {
+      background-color: #f1b53d;
+
+      &.active {
+        box-shadow: 0 0 6px 1px #f1b53d;
+      }
+    }
+
+    &.declined {
+      background-color: #ef0505;
+
+      &.active {
+        box-shadow: 0 0 6px 1px #ef0505;
+      }
+    }
+
+    &.accepted {
+      background-color: #a7eba7;
+
+      &.active {
+        box-shadow: 0 0 6px 1px #a7eba7;
+      }
+    }
+  }
+
+  .status-label {
+    cursor: pointer;
+
+    &.active {
+      font-weight: 700;
+      color: #004eaa;
+    }
+  }
+}
+
+.table-wrap {
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  --mat-table-header-headline-color: #004eaa;
+}
+
+.quote-id-cell {
+  color: #e10054 !important;
+}
+
+.add-btn {
+  background-color: #e10054 !important;
+  color: #fff !important;
+}
+
+.edit-icon {
+  color: #004eaa;
+}
+
+.delete-icon {
+  color: #ef0505;
+}
+
+.empty-state {
+  text-align: center;
+  color: #666;
+  padding: 32px 0;
+}
+
+@media (max-width: 600px) {
+  .heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.Sent-status {
+  background: #81fffe;
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid #00b2b1;
+}
+
+.Draft-status {
+  background: #f5daa2;
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid #f1b53d;
+}
+
+.Accepted-status {
+  background: #a7eba7;
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid #3ab33a;
+}
+
+.Declined-status {
+  background: #ffb6b6;
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid #ef0505;
+}
+

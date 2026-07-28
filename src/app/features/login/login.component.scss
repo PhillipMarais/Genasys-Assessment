@@ -11,6 +11,8 @@
   align-items: center;
   padding: 64px;
   background: linear-gradient(160deg, #2f3351 0%, #1c2340 40%, #004eaa 85%);
+  background-size: 200% 200%;
+  animation: gradient-shift 22s ease-in-out infinite alternate;
   color: #fff;
 }
 
@@ -21,6 +23,54 @@
   height: 60%;
   background: radial-gradient(circle, rgba(225, 0, 84, 0.35), transparent 70%);
   filter: blur(10px);
+  animation: glow-drift 18s ease-in-out infinite alternate;
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  animation: particle-float 7s ease-in-out infinite;
+
+  &:nth-child(1) { top: 12%; left: 18%; animation-duration: 5.5s; animation-delay: -1s; }
+  &:nth-child(2) {
+    top: 68%; left: 8%; width: 7px; height: 7px;
+    background: rgba(0, 178, 177, 0.7);
+    animation-duration: 7.5s; animation-delay: -3.5s;
+  }
+  &:nth-child(3) {
+    top: 30%; left: 45%; width: 8px; height: 8px;
+    animation-duration: 6s; animation-delay: -2s;
+  }
+  &:nth-child(4) {
+    top: 78%; left: 55%; width: 12px; height: 12px;
+    background: rgba(225, 0, 84, 0.6);
+    animation-duration: 8.5s; animation-delay: -4.5s;
+  }
+  &:nth-child(5) { top: 15%; left: 75%; animation-duration: 6.5s; animation-delay: -2.5s; }
+  &:nth-child(6) {
+    top: 50%; left: 88%; width: 7px; height: 7px;
+    background: rgba(0, 178, 177, 0.6);
+    animation-duration: 5s; animation-delay: -1.5s;
+  }
+  &:nth-child(7) {
+    top: 85%; left: 25%; width: 8px; height: 8px;
+    animation-duration: 7s; animation-delay: -5s;
+  }
+  &:nth-child(8) {
+    top: 40%; left: 62%; width: 6px; height: 6px;
+    background: rgba(255, 255, 255, 0.4);
+    animation-duration: 6.5s; animation-delay: -3s;
+  }
 }
 
 .brand-content {
@@ -121,6 +171,25 @@ button[type="submit"] {
   }
 }
 
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+@keyframes glow-drift {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.85; }
+  50% { transform: translate(-6%, 8%) scale(1.15); opacity: 1; }
+  100% { transform: translate(4%, -4%) scale(0.95); opacity: 0.8; }
+}
+
+@keyframes particle-float {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.25; }
+  25% { transform: translate(30px, -40px) scale(1.3); opacity: 0.7; }
+  50% { transform: translate(0, -65px) scale(1.5); opacity: 0.5; }
+  75% { transform: translate(-30px, -30px) scale(1.2); opacity: 0.85; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.25; }
+}
+
 @media (max-width: 900px) {
   .login-shell {
     grid-template-columns: 1fr;
@@ -136,7 +205,11 @@ button[type="submit"] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .brand-content, .form-card {
+  .brand-content, .form-card, .brand-pane, .brand-glow, .particle {
     animation: none;
+  }
+
+  .particles {
+    display: none;
   }
 }

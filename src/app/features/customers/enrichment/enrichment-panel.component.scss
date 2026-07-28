@@ -8,6 +8,7 @@
 
 h3 {
   margin: 0 0 4px;
+  color: #3287e2;
 }
 
 .hint {
@@ -23,6 +24,15 @@ h3 {
 
 .full-width {
   width: 100%;
+}
+
+.flag-icon {
+  width: 18px;
+  height: 13px;
+  object-fit: cover;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: 2px;
 }
 
 .empty-state {

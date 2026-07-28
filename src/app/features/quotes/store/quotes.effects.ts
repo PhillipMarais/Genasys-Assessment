@@ -25,21 +25,36 @@ export class QuotesEffects {
   addQuote$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addQuote),
-      switchMap(({ quote }) => of(quote).pipe(delay(SIMULATED_LATENCY_MS), map((q) => addQuoteSuccess({ quote: q }))))
+      switchMap(({ quote }) =>
+        of(quote).pipe(
+          delay(SIMULATED_LATENCY_MS),
+          map((q) => addQuoteSuccess({ quote: q }))
+        )
+      )
     )
   );
 
   updateQuote$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateQuote),
-      switchMap(({ quote }) => of(quote).pipe(delay(SIMULATED_LATENCY_MS), map((q) => updateQuoteSuccess({ quote: q }))))
+      switchMap(({ quote }) =>
+        of(quote).pipe(
+          delay(SIMULATED_LATENCY_MS),
+          map((q) => updateQuoteSuccess({ quote: q }))
+        )
+      )
     )
   );
 
   deleteQuote$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteQuote),
-      switchMap(({ id }) => of(id).pipe(delay(SIMULATED_LATENCY_MS), map((deletedId) => deleteQuoteSuccess({ id: deletedId }))))
+      switchMap(({ id }) =>
+        of(id).pipe(
+          delay(SIMULATED_LATENCY_MS),
+          map((deletedId) => deleteQuoteSuccess({ id: deletedId }))
+        )
+      )
     )
   );
 

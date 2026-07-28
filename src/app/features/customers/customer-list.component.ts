@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -20,11 +21,21 @@ import { customersFeature } from './store/customers.reducer';
 @Component({
   standalone: true,
   selector: 'app-customer-list',
-  imports: [MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSortModule, MatTableModule, MatTooltipModule],
+  imports: [
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatTooltipModule
+  ],
   templateUrl: './customer-list.component.html',
   styleUrl: './customer-list.component.scss'
 })
-export class CustomerListComponent implements AfterViewInit {
+export class CustomerListComponent {
   private readonly store = inject(Store);
   private readonly router = inject(Router);
   private readonly dialog = inject(MatDialog);
@@ -33,7 +44,20 @@ export class CustomerListComponent implements AfterViewInit {
   readonly dataSource = new MatTableDataSource<Customer>([]);
   readonly trackById = (_: number, customer: Customer): string => customer.id;
 
-  @ViewChild(MatSort) sort!: MatSort;
+  // Setter-based ViewChilds: MatPaginator/MatSort can emit their own `initialized` event before
+  // ngAfterViewInit runs (since our data already arrives synchronously from the store), and that
+  // one-time event is missed if we attach them only in ngAfterViewInit — the paginator then shows
+  // "0 of 0" and never actually slices the rows. A setter re-wires the dataSource the moment
+  // Angular resolves the query, which avoids the race.
+  @ViewChild(MatSort)
+  set sort(sort: MatSort) {
+    if (sort) this.dataSource.sort = sort;
+  }
+
+  @ViewChild(MatPaginator)
+  set paginator(paginator: MatPaginator) {
+    if (paginator) this.dataSource.paginator = paginator;
+  }
 
   constructor() {
     this.dataSource.sortingDataAccessor = (customer, sortHeaderId) => {
@@ -49,10 +73,6 @@ export class CustomerListComponent implements AfterViewInit {
       .select(customersFeature.selectAll)
       .pipe(takeUntilDestroyed())
       .subscribe((customers) => (this.dataSource.data = customers));
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
   }
 
   filter(event: Event): void {

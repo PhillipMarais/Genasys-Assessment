@@ -27,21 +27,36 @@ export class CustomersEffects {
   addCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addCustomer),
-      switchMap(({ customer }) => of(customer).pipe(delay(SIMULATED_LATENCY_MS), map((c) => addCustomerSuccess({ customer: c }))))
+      switchMap(({ customer }) =>
+        of(customer).pipe(
+          delay(SIMULATED_LATENCY_MS),
+          map((c) => addCustomerSuccess({ customer: c }))
+        )
+      )
     )
   );
 
   updateCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateCustomer),
-      switchMap(({ customer }) => of(customer).pipe(delay(SIMULATED_LATENCY_MS), map((c) => updateCustomerSuccess({ customer: c }))))
+      switchMap(({ customer }) =>
+        of(customer).pipe(
+          delay(SIMULATED_LATENCY_MS),
+          map((c) => updateCustomerSuccess({ customer: c }))
+        )
+      )
     )
   );
 
   deleteCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteCustomer),
-      switchMap(({ id }) => of(id).pipe(delay(SIMULATED_LATENCY_MS), map((deletedId) => deleteCustomerSuccess({ id: deletedId }))))
+      switchMap(({ id }) =>
+        of(id).pipe(
+          delay(SIMULATED_LATENCY_MS),
+          map((deletedId) => deleteCustomerSuccess({ id: deletedId }))
+        )
+      )
     )
   );
 
