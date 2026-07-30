@@ -50,17 +50,22 @@ export class EnrichmentPanelComponent implements OnInit {
   private readonly universityService = inject(UniversityService);
   private readonly destroyRef = inject(DestroyRef);
 
-  readonly countrySearch = new FormControl('', { nonNullable: true });
-  readonly universityQuery = new FormControl('', { nonNullable: true });
+  readonly countrySearch = new FormControl<string | Country>('', { nonNullable: true });
+  readonly universityQuery = new FormControl<string | University>('', { nonNullable: true });
 
   loadingPredictions = false;
   rateLimited = false;
   loadingUniversities = false;
 
   predictions$!: Observable<CountryPrediction[]>;
-  manualCountryOptions$!: Observable<Country[]>;
   selectedCountry$!: Observable<Country | undefined>;
-  universityResults$!: Observable<University[]>;
+
+  // Bound directly (not via `| async`) because these two are only ever read inside a
+  // <mat-autocomplete> panel, whose content Angular Material instantiates lazily on first
+  // open — a late subscription there would miss any country/query change that already
+  // happened before the panel was ever opened. Subscribing eagerly here avoids that race.
+  manualCountryOptions: Country[] = [];
+  universityResults: University[] = [];
 
   ngOnInit(): void {
     const countries$ = this.countryService.getCountries();
@@ -99,36 +104,43 @@ export class EnrichmentPanelComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef)
     );
 
-    this.manualCountryOptions$ = combineLatest([this.countrySearch.valueChanges.pipe(startWith('')), countries$]).pipe(
-      map(([search, countries]) => {
-        const term = search.trim().toLowerCase();
-        return term ? countries.filter((c) => c.name.toLowerCase().includes(term)) : countries;
-      })
-    );
+    combineLatest([this.countrySearch.valueChanges.pipe(startWith(this.countrySearch.value)), countries$])
+      .pipe(
+        map(([search, countries]) => {
+          const term = (typeof search === 'string' ? search : search.name).trim().toLowerCase();
+          return term ? countries.filter((c) => c.name.toLowerCase().includes(term)) : countries;
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((options) => (this.manualCountryOptions = options));
 
     this.selectedCountry$ = combineLatest([this.countryControl.valueChanges.pipe(startWith(this.countryControl.value)), countries$]).pipe(
       map(([code, countries]) => countries.find((c) => c.code === code))
     );
 
-    this.universityResults$ = combineLatest([
+    combineLatest([
       this.countryControl.valueChanges.pipe(startWith(this.countryControl.value)),
       this.universityQuery.valueChanges.pipe(startWith(this.universityQuery.value), debounceTime(UNIVERSITY_DEBOUNCE_MS), distinctUntilChanged())
-    ]).pipe(
-      switchMap(([code, query]) => {
-        if (!code || query.trim().length < MIN_QUERY_LENGTH) {
-          return of<University[]>([]);
-        }
-        return countries$.pipe(
-          take(1),
-          switchMap((countries) => {
-            const country = countries.find((c) => c.code === code);
-            if (!country) return of<University[]>([]);
-            this.loadingUniversities = true;
-            return this.universityService.search(country.name, query.trim()).pipe(tap(() => (this.loadingUniversities = false)));
-          })
-        );
-      })
-    );
+    ])
+      .pipe(
+        switchMap(([code, query]) => {
+          const term = (typeof query === 'string' ? query : query.name).trim();
+          if (!code || term.length < MIN_QUERY_LENGTH) {
+            return of<University[]>([]);
+          }
+          return countries$.pipe(
+            take(1),
+            switchMap((countries) => {
+              const country = countries.find((c) => c.code === code);
+              if (!country) return of<University[]>([]);
+              this.loadingUniversities = true;
+              return this.universityService.search(country.name, term).pipe(tap(() => (this.loadingUniversities = false)));
+            })
+          );
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((results) => (this.universityResults = results));
   }
 
   selectPrediction(change: MatChipListboxChange): void {
@@ -143,20 +155,24 @@ export class EnrichmentPanelComponent implements OnInit {
 
   private applyCountry(country: Country): void {
     this.countryControl.setValue(country.code);
-    this.countrySearch.setValue(country.name);
+    this.countrySearch.setValue(country);
     if (this.universityControl.value) {
       this.universityControl.setValue(null);
       this.universityQuery.setValue('');
     }
   }
 
+  countryDisplayFn = (value: string | Country): string => (typeof value === 'string' ? value : value?.name ?? '');
+
   selectUniversity(university: University): void {
     this.universityControl.setValue(university);
-    this.universityQuery.setValue(university.name);
+    this.universityQuery.setValue(university);
   }
 
   clearUniversity(): void {
     this.universityControl.setValue(null);
     this.universityQuery.setValue('');
   }
+
+  universityDisplayFn = (value: string | University): string => (typeof value === 'string' ? value : value?.name ?? '');
 }

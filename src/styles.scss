@@ -59,3 +59,23 @@ body {
 .mat-stepper-horizontal {
   border: 1px solid #0058bf;
 }
+
+.mat-stepper-horizontal-line {
+  border-top-color: #004eaa !important;
+}
+
+.mat-stepper-vertical, .mat-stepper-horizontal{
+  border-radius: 10px;
+}
+
+.mat-datepicker-toggle-default-icon {
+  color:#004eaa !important;
+}
+
+.mat-mdc-select-arrow svg {
+  color:#004eaa !important;
+}
+
+.mat-step-icon {
+  background-color: #ff000000 !important;
+}

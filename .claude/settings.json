@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -m 10 -v \"https://universities.hipolabs.com/search?country=south%20africa&name=cape\")"
+    ]
+  }
+}

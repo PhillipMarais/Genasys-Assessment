@@ -27,8 +27,8 @@
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Country</mat-label>
     <input matInput [formControl]="countrySearch" [matAutocomplete]="countryAuto" placeholder="Search all countries">
-    <mat-autocomplete #countryAuto="matAutocomplete" (optionSelected)="selectManualCountry($event.option.value)">
-      @for (country of manualCountryOptions$ | async; track country.code) {
+    <mat-autocomplete #countryAuto="matAutocomplete" [displayWith]="countryDisplayFn" (optionSelected)="selectManualCountry($event.option.value)">
+      @for (country of manualCountryOptions; track country.code) {
         <mat-option [value]="country">
           <img class="flag-icon" [src]="country.flagUrl" alt="">
           {{ country.name }}
@@ -50,8 +50,8 @@
       @if (loadingUniversities) {
         <mat-spinner matSuffix diameter="18"></mat-spinner>
       }
-      <mat-autocomplete #universityAuto="matAutocomplete" (optionSelected)="selectUniversity($event.option.value)">
-        @for (university of universityResults$ | async; track university.name) {
+      <mat-autocomplete #universityAuto="matAutocomplete" [displayWith]="universityDisplayFn" (optionSelected)="selectUniversity($event.option.value)">
+        @for (university of universityResults; track university.name) {
           <mat-option [value]="university">{{ university.name }}</mat-option>
         }
       </mat-autocomplete>
